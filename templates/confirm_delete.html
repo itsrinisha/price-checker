@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Delete {{ link.name }}?</p>
+    <button type="submit" class="btn btn-primary">Confirm</button>
+</form>
+{% endblock content %}

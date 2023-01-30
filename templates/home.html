@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load colorize %}
+{% block content %}
+<div class="mt-4">
+    <p class="text-end">Tracked items: {{ items_no }}</p>
+    <p class="text-end">Discounted items: {{ no_discounted }}</p>
+</div>
+
+{% if qs %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        {% for item in qs %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6>{{ item.name }}</h6>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Current Price: Rs. {{item.current_price }}</p>
+                <p class="card-text">Old Price: Rs. {{item.old_price }}</p>
+                <p class="card-text">Difference: Rs. {{item.price_difference|colorize }}</p>
+                <p class="card-text">Link: <a href="{{item.url }}" target="_blank">{{item.url }}</a></p>
+                <p class="align-self-end"><a href="{% url 'delete-link' item.pk %}"><button
+                            class="btn btn-outline-danger">Delete</button></a></p>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No items are being tracked</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
